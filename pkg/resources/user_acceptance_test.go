@@ -8,10 +8,10 @@ import (
 	"testing"
 
 	"github.com/Pallinder/go-randomdata"
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/testhelpers"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/testhelpers"
 	"github.com/stretchr/testify/require"
 )
 

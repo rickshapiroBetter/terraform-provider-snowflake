@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/snowflake"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/snowflake"
 )
 
 var schemasSchema = map[string]*schema.Schema{

@@ -6,9 +6,9 @@ import (
 	"log"
 	"strings"
 
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/snowflake"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/snowflake"
 )
 
 var notificationIntegrationSchema = map[string]*schema.Schema{

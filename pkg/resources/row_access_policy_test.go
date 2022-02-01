@@ -6,9 +6,9 @@ import (
 	"time"
 
 	sqlmock "github.com/DATA-DOG/go-sqlmock"
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/provider"
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/resources"
-	. "github.com/chanzuckerberg/terraform-provider-snowflake/pkg/testhelpers"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/provider"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/resources"
+	. "github.com/rickshapirobetter/terraform-provider-snowflake/pkg/testhelpers"
 	"github.com/stretchr/testify/require"
 )
 

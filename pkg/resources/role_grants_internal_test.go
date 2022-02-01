@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	sqlmock "github.com/DATA-DOG/go-sqlmock"
-	. "github.com/chanzuckerberg/terraform-provider-snowflake/pkg/testhelpers"
+	. "github.com/rickshapirobetter/terraform-provider-snowflake/pkg/testhelpers"
 	"github.com/stretchr/testify/require"
 )
 

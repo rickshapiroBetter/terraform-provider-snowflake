@@ -3,9 +3,9 @@ package datasources_test
 import (
 	"testing"
 
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/provider"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/provider"
 )
 
 // FIXME refactor to testhelpers

@@ -7,9 +7,10 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/datasources"
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/db"
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/resources"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/datasources"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/db"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/resources"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/pkg/errors"
@@ -30,12 +31,12 @@ func Provider() *schema.Provider {
 		Schema: map[string]*schema.Schema{
 			"account": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("SNOWFLAKE_ACCOUNT", nil),
 			},
 			"username": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("SNOWFLAKE_USER", nil),
 			},
 			"password": {
@@ -128,8 +129,23 @@ func Provider() *schema.Provider {
 			},
 			"region": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("SNOWFLAKE_REGION", "us-west-2"),
+			},
+			"host": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				DefaultFunc: schema.EnvDefaultFunc("SNOWFLAKE_HOST", ""),
+			},
+			"port": {
+				Type:        schema.TypeInt,
+				Optional:    true,
+				DefaultFunc: schema.EnvDefaultFunc("SNOWFLAKE_PORT", 443),
+			},
+			"protocol": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				DefaultFunc: schema.EnvDefaultFunc("SNOWFLAKE_PROTOCOL", "https"),
 			},
 		},
 		ResourcesMap:   getResources(),
@@ -256,6 +272,9 @@ func ConfigureProvider(s *schema.ResourceData) (interface{}, error) {
 	oauthClientSecret := s.Get("oauth_client_secret").(string)
 	oauthEndpoint := s.Get("oauth_endpoint").(string)
 	oauthRedirectURL := s.Get("oauth_redirect_url").(string)
+	host := s.Get("host").(string)
+	port := s.Get("port").(int)
+	protocol := s.Get("protocol").(string)
 
 	if oauthRefreshToken != "" {
 		accessToken, err := GetOauthAccessToken(oauthEndpoint, oauthClientID, oauthClientSecret, GetOauthData(oauthRefreshToken, oauthRedirectURL))
@@ -264,7 +283,6 @@ func ConfigureProvider(s *schema.ResourceData) (interface{}, error) {
 		}
 		oauthAccessToken = accessToken
 	}
-
 	dsn, err := DSN(
 		account,
 		user,
@@ -276,6 +294,9 @@ func ConfigureProvider(s *schema.ResourceData) (interface{}, error) {
 		oauthAccessToken,
 		region,
 		role,
+		host,
+		port,
+		protocol,
 	)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not build dsn for snowflake connection")
@@ -285,7 +306,6 @@ func ConfigureProvider(s *schema.ResourceData) (interface{}, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "Could not open snowflake database.")
 	}
-
 	return db, nil
 }
 
@@ -299,7 +319,10 @@ func DSN(
 	privateKeyPassphrase,
 	oauthAccessToken,
 	region,
-	role string) (string, error) {
+	role,
+	host string,
+	port int,
+	protocol string) (string, error) {
 
 	// us-west-2 is their default region, but if you actually specify that it won't trigger their default code
 	//  https://github.com/snowflakedb/gosnowflake/blob/52137ce8c32eaf93b0bd22fc5c7297beff339812/dsn.go#L61
@@ -308,10 +331,13 @@ func DSN(
 	}
 
 	config := gosnowflake.Config{
-		Account: account,
-		User:    user,
-		Region:  region,
-		Role:    role,
+		Account:  account,
+		User:     user,
+		Region:   region,
+		Role:     role,
+		Host:     host,
+		Port:     port,
+		Protocol: protocol,
 	}
 
 	if privateKeyPath != "" {

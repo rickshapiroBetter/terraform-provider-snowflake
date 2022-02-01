@@ -1,4 +1,4 @@
-module github.com/chanzuckerberg/terraform-provider-snowflake
+module github.com/rickshapirobetter/terraform-provider-snowflake
 
 go 1.17
 

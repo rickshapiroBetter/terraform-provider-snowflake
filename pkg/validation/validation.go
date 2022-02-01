@@ -71,7 +71,7 @@ func ValidatePrivilege(valid []string, ignoreCase bool) schema.SchemaValidateFun
 		}
 
 		if v == "ALL" || (ignoreCase && strings.ToUpper(v) == "ALL") {
-			errors = append(errors, fmt.Errorf("the ALL privilege is deprecated, see https://github.com/chanzuckerberg/terraform-provider-snowflake/discussions/318"))
+			errors = append(errors, fmt.Errorf("the ALL privilege is deprecated, see https://github.com/rickshapirobetter/terraform-provider-snowflake/discussions/318"))
 			return warnings, errors
 		}
 

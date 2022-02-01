@@ -3,9 +3,9 @@ package resources_test
 import (
 	"testing"
 
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/provider"
-	"github.com/chanzuckerberg/terraform-provider-snowflake/pkg/resources"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/provider"
+	"github.com/rickshapirobetter/terraform-provider-snowflake/pkg/resources"
 	"github.com/stretchr/testify/require"
 )
 
