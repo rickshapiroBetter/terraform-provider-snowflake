@@ -214,6 +214,8 @@ func getResources() map[string]*schema.Resource {
 		"snowflake_tag":                       resources.Tag(),
 		"snowflake_task":                      resources.Task(),
 		"snowflake_user":                      resources.User(),
+		"snowflake_user_password":             resources.SnowflakeUserPassword(),
+		"snowflake_user_password_association": resources.SnowflakeUserPasswordAssociation(),
 		"snowflake_user_public_keys":          resources.UserPublicKeys(),
 		"snowflake_view":                      resources.View(),
 		"snowflake_warehouse":                 resources.Warehouse(),
